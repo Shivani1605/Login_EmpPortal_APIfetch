@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+
+    <title>Curd Opration</title>
+	<link type="text/css" rel="stylesheet" href="emp_portal_style.css">
+	<script src =
+		"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+	</script>
+	
+
+</head>
+
+<body>
+	<table>
+		
+		
+				<form autocomplete="off" onsubmit="onFormSubmit()">
+					<h2> Employee Portal </h2>
+					
+					<div>
+						<label for="emp_id"> Emp_Id :</label>
+						<input type="number" min="0"  name="emp_id" id="emp_id" placeholder="Employee Id" required>
+					    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						
+					    
+						<label for="emp_name"> Emp_Name :</label>
+						<input type="text" name="emp_name" id="emp_name" pattern="[a-zA-z]*" placeholder="Employee Name" required>
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					
+						<label for="emp_age"> Age :</label>
+						<input type="number"  name="emp_age" id="emp_age"placeholder="Employee Age" required>
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					
+						<label for="emp_gender">Gender :</label>
+						
+						<select name="gender" id="emp_gender" required>
+							<option value="none" selected>Gender</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="other">other</option>
+						</select>
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						 <class="form_action--button">
+						<input type="submit" value="ADD">
+					</div>
+				</form>
+				<button type="button">Count Rows</button>
+				<!--  for showing data after add-->
+				<td>
+					<h1>Employee List</h1>
+					<hr width="100%" color="black">
+					<table class="list" id="empList">
+						<thead>
+							<tr>
+								<th> Employee ID</th>
+								<th> Employee Name</th>
+								<th> Employeem Age</th>
+								<th> Employee Gender</th>
+							</tr>
+						</thead>
+						<tbody >
+						
+						</tbody>
+					</table>
+				</td>
+		
+		
+	</table>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+
+var selectedRow = null;
+var ids=[];
+$(document).ready(function()
+{
+        $("button").click(function()
+		{
+		//
+		//var rowCount = 1;
+              
+            
+          
+            var rowCount = ids.length;
+            alert(rowCount); 
+			
+			/*var table = document.getElementById("data");
+			var rowCount = table.rows.length;
+	
+			if (rowCount>1)
+			{
+				table.onDelete(-1);
+				
+			}
+			alert(rowCount);*/
+			
+			
+        });
+		
+		
+});
+
+function onFormSubmit(e){
+	event.preventDefault();
+	var formData = readFormData();
+	if (selectedRow === null){
+		insertNewRecord(formData);
+	}
+	else{
+		updateRecord(formData);		
+	}
+	resetForm();
+}
+
+// Retrive the data
+function readFormData(){
+	var formData = {};
+	formData["emp_id"] = document.getElementById("emp_id").value;
+	formData["emp_name"] = document.getElementById("emp_name").value;
+	formData["emp_age"] = document.getElementById("emp_age").value;
+	formData["emp_gender"] = document.getElementById("emp_gender").value;
+	return formData;	
+}
+
+// insert record function
+function insertNewRecord(data){
+	
+	if(ids.includes(data.emp_id))
+	{
+		alert('id aleready present ');
+		return 0;
+	}
+	if(data.emp_age < 19 || data.emp_age >60)
+	{
+		alert('age must be between 19 to 60');
+		return 0;
+	}
+	
+
+    ids.push(data.emp_id);
+ 	 
+	var table = document.getElementById("empList").getElementsByTagName("tbody")[0];
+	var newRow = table.insertRow(table.length);
+	var cell1 = newRow.insertCell(0);
+		cell1.innerHTML = data.emp_id;		
+	var cell2 = newRow.insertCell(1);
+		cell2.innerHTML = data.emp_name;
+	var cell3 = newRow.insertCell(2);
+		cell3.innerHTML = data.emp_age;	
+	var cell4 = newRow.insertCell(3);
+		cell4.innerHTML = data.emp_gender;
+	var cell5 = newRow.insertCell(4);
+		cell5.innerHTML = '<button onclick="onEdit(this)">Edit</button> <button onclick="onDelete(this)">Delete</button>';
+}
+
+
+//Editt data
+
+function onEdit(td){
+	selectedRow = td.parentElement.parentElement;
+	document.getElementById('emp_id').value = selectedRow.cells[0].innerHTML;
+	document.getElementById('emp_name').value = selectedRow.cells[1].innerHTML;
+	document.getElementById('emp_age').value = selectedRow.cells[2].innerHTML;
+	document.getElementById('emp_gender').value = selectedRow.cells[3].innerHTML;
+	return updateRecord();
+}
+
+function updateRecord(formData){
+	selectedRow.cells[0].innerHTML = formData.emp_id;
+	selectedRow.cells[1].innerHTML = formData.emp_name;
+	selectedRow.cells[2].innerHTML = formData.emp_age;
+	selectedRow.cells[3].innerHTML = formData.emp_gender;
+}
+
+//Delete Function
+
+function onDelete(td){
+	if(confirm('Do You Want To Delete This Record?')){
+		row = td.parentElement.parentElement;
+		document.getElementById("empList").deleteRow(row.rowIndex);
+	
+	
+		
+	}
+	resetForm();
+}
+
+// After delete we have to reset data : reset function
+
+function resetForm(){
+	document.getElementById("emp_id").value = "";
+	document.getElementById("emp_name").value = "";
+	document.getElementById("emp_age").value = "";
+	document.getElementById("emp_gender").value = "";
+}
+
+
+</script>
+
+	
+</body>
+</html>

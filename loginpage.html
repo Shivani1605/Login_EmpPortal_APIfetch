@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Page</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+
+</head>
+
+
+
+<SCRIPT LANGUAGE="JavaScript">
+
+
+//var error = document.getElementById("error"); // Variable to count number of attempts.
+//var attempt=3;
+// Below function Executes on click of login button.
+function validate(){
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+if ( username == "sankey901@solution.com" && password == "mindset"){
+//alert ("Login successfully");
+window.location = "welcomepage.html"; // Redirecting to other page.
+return false;
+}
+else{
+if(username != "sankey901@solution.com")
+{
+document.getElementById('error').innerText = "please enter correct username!!!";
+}
+if(password != "mindset" )
+{
+document.getElementById('error').innerText = "please enter correct password!!!";
+}
+}
+}
+</SCRIPT>
+
+<body>
+	<section>
+	
+		<div class="imgBx">
+			<img src="images.jfif">
+		</div>
+		<div class="contentBx">
+			<div class="formBx">
+				<p>Welcome Back</p>
+				
+				<h3>Login To Your Acoount</h3>
+				<br>
+				<form  NAME="iAccInput">
+					<div class="inputBx">
+						<span>Email</span><br>
+						<input type="Email" id="username" required placeholder="abc4@gmail.com" >
+					</div>
+					
+					<div class="inputBx">
+						<span>Password</span><br>
+						<input type="password" id="password" required placeholder="password" >
+					</div>
+					
+					<div class="remember">
+						<label><input type="checkbox" name=""> Remember me</label>
+						<a href="#">Forget Password?</a>
+					</div>
+					<br>
+					<div class="inputBx">
+						
+						<input type="button"  onClick="validate()"  value="Login now" name="">
+						
+					</div>
+						<p id="error" style="color:red"></p>
+					
+					<div class="inputBx" >
+					 <button class="btn">
+					 
+								<i class="fab fa-google fa-1x"></i>
+								Or sign-in with google
+				</button>
+						
+					
+						
+						
+					</div>
+					<div class="inputBx">
+						
+						<p>Don't have an account?<a href="#">Join free today</a></p>
+					</div>
+				</form>
+			</div>
+		
+		</div>
+		
+	</section>
+</body>
+</html>
